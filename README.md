@@ -3,7 +3,6 @@
 
 # 準備
 
-* windowsで動かす場合は[Play Sound Command : Vector](http://www.vector.co.jp/soft/dl/win95/art/se154035.html)からplsnd.exeをダウンロードし、実行。playsnd.exeが出来ます。say_hello.exeと同じ場所に置いて下さい。
 * say_hello.exe を実行するとコマンドプロンプトに「Listening 8080 port」と表示され待ち受け状態となります。
 
 ## 「おはようございます」
