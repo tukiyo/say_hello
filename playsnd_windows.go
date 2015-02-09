@@ -17,10 +17,13 @@ var (
 )
 
 func playsnd(filename string) error {
-	_, r1, err := procPlaySound.Call(
+	filename = `C:\dev\go\src\github.com\tukiyo\say_hello\bye.wav`
+
+	r0, _, err := procPlaySound.Call(
 		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(filename))),
+		0,
 		SND_SYNC|SND_NODEFAULT|SND_FILENAME)
-	if r1 == 0 {
+	if r0 == 0 {
 		return err
 	}
 	return nil
