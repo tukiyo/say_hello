@@ -17,8 +17,6 @@ var (
 )
 
 func playsnd(filename string) error {
-	filename = `C:\dev\go\src\github.com\tukiyo\say_hello\bye.wav`
-
 	r0, _, err := procPlaySound.Call(
 		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(filename))),
 		0,
