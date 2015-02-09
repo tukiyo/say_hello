@@ -1,32 +1,28 @@
 package main
 
 import (
-    "fmt"
-    "net/http"
-    "runtime"
-    "os/exec"
+	"fmt"
+	"net/http"
 )
 
 func say_hi(w http.ResponseWriter, r *http.Request) {
-    if runtime.GOOS == "windows" {
-        exec.Command("playsnd.exe", "hi.wav").Output()
-    } else {
-        exec.Command("open", "hi.wav").Output()
-    }
-    fmt.Print("hi\n")
+	if err := playsnd("hi.wav"); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Write([]byte("hi\n"))
 }
 func say_bye(w http.ResponseWriter, r *http.Request) {
-    if runtime.GOOS == "windows" {
-        exec.Command("playsnd.exe", "bye.wav").Output()
-    } else {
-        exec.Command("open", "bye.wav").Output()
-    }
-    fmt.Print("bye\n")
+	if err := playsnd("bye.wav"); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Write([]byte("bye\n"))
 }
 
 func main() {
-    http.HandleFunc("/hi", say_hi)
-    http.HandleFunc("/bye", say_bye)
-    fmt.Print("Listening 8080 port\n")
-    http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/hi", say_hi)
+	http.HandleFunc("/bye", say_bye)
+	fmt.Print("Listening 8080 port\n")
+	http.ListenAndServe(":8080", nil)
 }
